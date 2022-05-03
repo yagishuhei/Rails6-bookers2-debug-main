@@ -11,11 +11,11 @@ class User < ApplicationRecord
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :introduction, length: { minimum: 0, maximum: 50 }, allow_blank: true
-
-
-
-
-
+  
+  
+  
+  
+  
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
@@ -23,5 +23,9 @@ class User < ApplicationRecord
     end
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
+  
+  def favorited_by?(book_id)
+    favorites.where(book_id: book_id).exists?
+  end 
 
 end

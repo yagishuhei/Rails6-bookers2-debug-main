@@ -1,0 +1,14 @@
+<% if !user_signed_in? %>
+  <i class="far fa-heart favorite_btn"></i>
+  <%= book.favorites.length %>
+<% elsif current_user.favorited_by?(book.id) %>
+  <%= link_to book_favorites_path(book, book.favorites), method: :delete, remote: true do %>
+    <i class="fas fa-heart unfavorite_btn"></i>いいね
+  <% end %>
+  <%= book.favorites.length %>
+<% else %>
+  <%= link_to book_favorites_path(book), method: :post, remote: true do %>
+   <i class="far fa-heart favorite_btn"></i>いいね
+  <% end %>
+  <%= book.favorites.length %>
+<% end %>
