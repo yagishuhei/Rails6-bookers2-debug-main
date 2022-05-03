@@ -34,16 +34,28 @@
             <%= link_to "削除", book_book_comment_path(book_comment.book,book_comment), method: :delete %>
           <% end %>
         <% end %>
+
+          <% if @book.favorited_by?(current_user) %>
+          <P>
+            <%= link_to book_favorites_path(@book), method: :delete do %>
+              🤍<%= @book.favorites.count %>いいね
+            <% end %>
+          </P>
+          <% else %>
+          <p>
+            <%= link_to book_favorites_path(@book), method: :delete do %>
+              ♡<%= @book.favorites.count %> いいね
+            <% end %>
+          </p>
+          <% end %>
       </div>
-      
-      
+
       <div>
         <%= form_with model: [@book, @book_comment] do |f| %>
           <%= f.text_area :comment,rows: '5', placeholder: "コメントをここに" %>
           <%= f.submit "送信する" %>
         <% end %>
       </div>
-        </div>
     </div>
   </div>
 </div>
